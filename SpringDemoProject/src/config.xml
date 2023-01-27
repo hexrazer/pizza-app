@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/util
+     http://www.springframework.org/schema/util/spring-util-2.5.xsd
+    ">
+       <!--  <context:annotation-config/> -->
+    
+    <!-- screen sizes -->
+	<bean
+		id="smallscreen" class="com.spring.model.ScreenSize"
+		p:height="4.54"
+		p:width="2.32"
+		p:glass="gorilla glass 1"
+	/>
+	<bean
+		id="midscreen" class="com.spring.model.ScreenSize"
+		p:height="5.25"
+		p:width="3.0"
+		p:glass="gorilla glass 3"
+	/>
+	<bean
+		id="largescreen" class="com.spring.model.ScreenSize"
+		p:height="6.54"
+		p:width="3.50"
+		p:glass="gorilla glass 4"
+	/>
+	
+	<!-- processors -->
+	<bean
+		id="processor1" class="com.spring.model.Processor"
+		p:brand="Apple"
+		p:model="Apple A1 chip"
+	/>
+	
+	<!--colors  -->
+	<bean id="redcrimson" class="com.spring.model.Color"
+	p:colorId="1"
+	p:baseColor="Red"
+	p:hue="Crimson Red"
+		
+	/>
+	
+	<bean id="pinksalmon" class="com.spring.model.Color"
+	p:colorId="2"
+	p:baseColor="Pink"
+	p:hue="Salmon Pink"
+		
+	/>
+	<bean id="yellowlemon" class="com.spring.model.Color"
+	p:colorId="3"
+	p:baseColor="Yellow"
+	p:hue="Lemon Yellow"
+		
+	/>
+	<bean id="bluesteel" class="com.spring.model.Color"
+	p:colorId="4"
+	p:baseColor="Blue"
+	p:hue="Steel Blue"
+		
+	/>
+	
+	<!--list of screensizes for iphone4s  -->
+	
+	<util:list id="iphone4s_screen_sizes_list" value-type="com.spring.model.ScreenSize">
+		<ref bean="smallscreen"/>
+		<ref bean="midscreen"/>
+	</util:list>
+	
+	<!--map of colors for iphone4s  -->
+	<!-- <util:map id="iphone4s_colors_map">
+		<entry key="#{pinksalmon.getColorId}" value-ref="pinksalmon"/>
+		<entry key="#{bluesteel.getColorId}"  value-ref="bluesteel"/>
+	</util:map> -->
+	
+	<!--phones  -->
+	
+	<bean
+		id="iPhone4s" class="com.spring.model.Phone" >
+		
+		<!-- <property name="model" value="IPhone 4s"/>
+		<property name="price" value="3499.99"/>
+		<property name="brand" value="Apple"/>
+		<property name="processor" ref="processor1"/>
+		<property name="screenSize" ref="iphone4s_screen_sizes_list"/> -->
+		
+		
+		<!-- <property name="colors" ref="iphone4s_colors_map"/> -->
+		<!-- <property name="colors">
+			<util:map>
+				<entry key="#{redcrimson.getColorId}" value-ref="redcrimson"/>
+				<entry key="#{bluesteel.getColorId}"  value-ref="bluesteel"/>
+			</util:map>
+		</property> -->
+		
+		<constructor-arg value="IPhone 5s"/>
+		<constructor-arg value="4599.90"/>
+		<constructor-arg value="Apple"/>
+		<constructor-arg ref="processor1"/>
+		<constructor-arg>
+			<util:list>
+				<ref bean="midscreen"/>
+				<ref bean="largescreen"/>
+			</util:list>
+		</constructor-arg>
+		<constructor-arg>
+			<util:map>
+				<entry key="#{pinksalmon.getColorId}" value-ref="pinksalmon"/>
+				<entry key="#{bluesteel.getColorId}"  value-ref="bluesteel"/>
+				
+			</util:map>
+		</constructor-arg>
+		
+		
+		</bean>
+		
+			<bean class="com.spring.model.Addition" name="add1" >
+  			<constructor-arg  index="1" value="12" type="double" />
+  			<constructor-arg  index="0" value="3" type="double" />
+  		</bean>
+		
+		<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+    
+    
+    </beans>

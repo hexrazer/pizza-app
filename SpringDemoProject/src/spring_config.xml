@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/util
+     http://www.springframework.org/schema/util/spring-util-2.5.xsd
+    ">
+    
+    <context:annotation-config/>
+	<!-- screen sizes -->
+	<bean
+		id="smallscreen" class="com.spring.model.ScreenSize"
+		p:height="4.54"
+		p:width="2.32"
+		p:glass="gorilla glass 1"
+	/>
+	<bean
+		id="midscreen" class="com.spring.model.ScreenSize"
+		p:height="5.25"
+		p:width="3.0"
+		p:glass="gorilla glass 3"
+	/>
+	<bean
+		id="largescreen" class="com.spring.model.ScreenSize"
+		p:height="6.54"
+		p:width="3.50"
+		p:glass="gorilla glass 4"
+	/>
+
+	<!-- list of screen sizes -->
+	<bean id="screengroup1" class="java.util.ArrayList">
+		<constructor-arg>
+			<list value-type="com.spring.model.ScreenSize">
+				<ref bean="smallscreen"/>
+				<ref bean="midscreen"/>
+			</list>
+		</constructor-arg>
+	</bean>
+	<!-- processors -->
+	<bean
+		id="processor1" class="com.spring.model.Processor"
+		p:brand="Apple"
+		p:model="Apple A1 chip"
+	/>
+	
+	<!--colors  -->
+	<bean id="redcrimson" class="com.spring.model.Color"
+	p:colorId="1"
+	p:baseColor="Red"
+	p:hue="Crimson Red"
+		
+	/>
+	
+	<bean id="pinksalmon" class="com.spring.model.Color"
+	p:colorId="2"
+	p:baseColor="Pink"
+	p:hue="Salmon Pink"
+		
+	/>
+	<bean id="yellowlemon" class="com.spring.model.Color"
+	p:colorId="3"
+	p:baseColor="Yellow"
+	p:hue="Lemon Yellow"
+		
+	/>
+	<bean id="bluesteel" class="com.spring.model.Color"
+	p:colorId="4"
+	p:baseColor="Blue"
+	p:hue="Steel Blue"
+		
+	/>
+	
+	
+	
+	<!--Map of colors  -->
+	 <bean id="colorsgroup1" class="java.util.HashMap">
+		<constructor-arg>
+			<map key-type="java.lang.Integer" value-type="com.spring.model.Color">
+				<entry key = "#{redcrimson.getColorId()}" value-ref="redcrimson"/>
+				<entry key="90" value-ref="yellowlemon"/>
+				<entry key="#{bluesteel.getColorId()}" value-ref="bluesteel"/>
+			</map>
+		</constructor-arg>
+		
+	</bean>
+	
+	<!--phones  -->
+	
+	<bean
+		id="iPhone4s" class="com.spring.model.Phone" init-method="initiatePhone" destroy-method="destroyPhone"
+		p:model="iphone 4s"
+		p:brand="Apple"
+		p:price="30000.59"
+		p:processor-ref="processor1"
+		p:screenSize-ref="screengroup1"
+		p:colors-ref="colorsgroup1"
+		
+	/>
+		
+	
+	
+
+
+
+
+	<!-- <bean id="screens1" class="java.util.ArrayList">
+		
+			<constructor-arg>
+				<list>
+					<ref bean="screen1"/>
+					<ref bean="screen2"/>
+					<ref bean="screen3"/>
+					<ref bean="screen4"/>
+				</list>
+			</constructor-arg>
+		
+	</bean>
+
+	<bean id="phone1" class="com.spring.model.Phone"
+		init-method="initiatePhone" destroy-method="destroyPhone"
+		p:price="17881.99" p:brand="Samsung Co." p:processor-ref="processor1" p:model="Galaxy Grand"
+		p:screenSize-ref="screens1"
+	
+		/>
+	<property name="model" value="Galaxy Grand 2"></property> <property 
+		name="price" value="1499.77"></property> <property name="brand" value="Samsung 
+		Inc."></property> <property name="processor" ref="processor1" ></property>
+
+	<bean
+		id="screen1" class="com.spring.model.ScreenSize"
+		p:height="6.5"
+		p:width="2.6"
+		p:glass="Gorilla glass 3"
+	/>
+	
+	<util:list id = "utilscreenlist" value-type="com.spring.ScreenSize">
+		<ref bean="screen2"/>
+		<ref bean="screen4"/>
+	</util:list>
+	
+	<bean
+		id="screen2" class="com.spring.model.ScreenSize"
+		p:height="5.5"
+		p:width="1.6"
+		p:glass="Gorilla glass 2"
+	/>
+	
+	<bean
+		id="screen3" class="com.spring.model.ScreenSize"
+		p:height="10.47"
+		p:width="5.6"
+		p:glass="Gorilla glass 4"
+	/>
+	
+	<bean
+		id="screen4" class="com.spring.model.ScreenSize"
+		p:height="7.5"
+		p:width="3.6"
+		p:glass="Gorilla glass 4"
+	/>
+
+	<bean id="phone2" class="com.spring.model.Phone"
+		p:price="45666.44" p:brand="OnePlus 10T" p:processor-ref="processor2" p:model="OnePlus"
+		p:screenSize-ref="utilscreenlist"
+		 />
+
+
+	<bean id="phone3" class="com.spring.model.Phone">
+		<property name="model" value="IPhone 12"></property>
+		<property name="price" value="75000"></property>
+		<property name="brand" value="Apple"></property>
+		<property name="processor" ref="processor2" ></property>
+		<constructor-arg ref="processor3" />
+		<property name="screenSize">
+			<list value-type="com.spring.ScreenSize">
+				<ref bean="screen1"/>
+				<ref bean="screen2"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="phone4" class="com.spring.model.Phone"
+		c:model="realme 1"
+		c:price="10000.01"
+		c:brand="Realme"
+		c:processor-ref="processor1"
+		c:screenSize-ref="screen1"
+		
+	/>
+	
+	<bean id="phone5" class="com.spring.model.Phone">
+		<property name="model">
+			<value>Vivo v1</value>
+		</property>
+		<property name="price">
+			<value>45000</value>
+		</property>
+		<property name="brand">
+			<value>Vivo</value>
+		</property>
+		<property name="processor" ref="processor1">
+			
+		</property>
+	</bean>
+	
+	<bean id="processor1" class="com.spring.model.Processor"
+		c:brand="Snapdragon"
+		c:model="Snapdragon 450"
+	/>
+		
+
+	<bean id="processor2" class="com.spring.model.Processor">
+		<property name="model" value="Exynos 5001" />
+		<property name="brand" value="Exynos"></property>
+	</bean>
+
+	<bean class="com.spring.model.Processor" name="processor3">
+		<property name="model">
+			<value>bionic chip A10</value>
+		</property>
+		<property name="brand">
+			<value>Apple</value>
+		</property>
+	</bean> -->
+	
+
+</beans>
+ 
